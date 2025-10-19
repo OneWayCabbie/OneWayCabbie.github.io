@@ -72,6 +72,15 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          BCMS_ORG_ID: ${{ secrets.BCMS_ORG_ID }}
+          BCMS_INSTANCE_ID: ${{ secrets.BCMS_INSTANCE_ID }}
+          BCMS_API_KEY_ID: ${{ secrets.BCMS_API_KEY_ID }}
+          BCMS_API_KEY_SECRET: ${{ secrets.BCMS_API_KEY_SECRET }}
+          PUBLIC_BCMS_ORG_ID: ${{ secrets.BCMS_ORG_ID }}
+          PUBLIC_BCMS_INSTANCE_ID: ${{ secrets.BCMS_INSTANCE_ID }}
+          PUBLIC_BCMS_API_KEY_ID: ${{ secrets.BCMS_API_KEY_ID }}
+          PUBLIC_BCMS_API_KEY_SECRET: ${{ secrets.BCMS_API_KEY_SECRET }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
