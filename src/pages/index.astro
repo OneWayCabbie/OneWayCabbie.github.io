@@ -16,16 +16,123 @@ import 'swiper/css';
 import { bcmsPrivate } from '../bcms-private';
 import { bcmsPublic } from '../bcms-public';
 
-const homePageEntry = (
-    await bcmsPrivate.entry.getBySlug(
-        'home',
-        'onewaycabbie--one-way-taxi--one-way-cab',
-    )
-) as OnewaycabbieOneWayTaxiOneWayCabEntry;
-const homePageMeta = homePageEntry.meta.en as OnewaycabbieOneWayTaxiOneWayCabEntryMetaItem;
-const legalEntries = (
-    await bcmsPrivate.entry.getAll('legal')
-) as LegalEntry[];
+// Try to fetch BCMS data, but handle errors gracefully
+let homePageEntry: OnewaycabbieOneWayTaxiOneWayCabEntry | null = null;
+let homePageMeta: OnewaycabbieOneWayTaxiOneWayCabEntryMetaItem | null = null;
+let legalEntries: LegalEntry[] = [];
+
+try {
+    homePageEntry = (
+        await bcmsPrivate.entry.getBySlug(
+            'home',
+            'onewaycabbie--one-way-taxi--one-way-cab',
+        )
+    ) as OnewaycabbieOneWayTaxiOneWayCabEntry;
+    homePageMeta = homePageEntry.meta.en as OnewaycabbieOneWayTaxiOneWayCabEntryMetaItem;
+    legalEntries = (
+        await bcmsPrivate.entry.getAll('legal')
+    ) as LegalEntry[];
+} catch (error) {
+    console.warn('Failed to fetch BCMS data:', error);
+    // Provide fallback data structure with proper types
+    homePageMeta = {
+        title: 'OneWayCabbie',
+        slug: 'home',
+        hero_gallery: [],
+        hero_description: {
+            nodes: [
+                {
+                    type: 'paragraph',
+                    content: [
+                        {
+                            type: 'text',
+                            text: 'OneWayCabbie - Affordable One-Way Cabs in Rajasthan'
+                        }
+                    ]
+                }
+            ]
+        },
+        hero_cover_image: {
+            _id: '',
+            alt_text: '',
+            caption: '',
+            name: '',
+            src: '',
+            width: 0,
+            height: 0,
+            type: 'image'
+        },
+        tickets_title: 'Book Your Ride',
+        tickets_description: {
+            nodes: [
+                {
+                    type: 'paragraph',
+                    content: [
+                        {
+                            type: 'text',
+                            text: 'Get the best deals on one-way cab rides'
+                        }
+                    ]
+                }
+            ]
+        },
+        tickets: [],
+        about_title: 'About OneWayCabbie',
+        about_cover: {
+            _id: '',
+            alt_text: '',
+            caption: '',
+            name: '',
+            src: '',
+            width: 0,
+            height: 0,
+            type: 'image'
+        },
+        about_description: {
+            nodes: [
+                {
+                    type: 'paragraph',
+                    content: [
+                        {
+                            type: 'text',
+                            text: 'Your trusted partner for affordable one-way cab services'
+                        }
+                    ]
+                }
+            ]
+        },
+        about_topics: [],
+        sponsors_title: 'Our Partners',
+        sponsors: [],
+        speakers_title: 'Why Choose Us',
+        speakers_description: {
+            nodes: [
+                {
+                    type: 'paragraph',
+                    content: [
+                        {
+                            type: 'text',
+                            text: 'Experience the best in one-way cab services'
+                        }
+                    ]
+                }
+            ]
+        },
+        speakers_cover_image: {
+            _id: '',
+            alt_text: '',
+            caption: '',
+            name: '',
+            src: '',
+            width: 0,
+            height: 0,
+            type: 'image'
+        },
+        speakers: [],
+        agenda_title: '',
+        agenda_days: []
+    };
+}
 
 const bcmsConfig = bcmsPublic.getConfig();
 ---
@@ -33,38 +140,38 @@ const bcmsConfig = bcmsPublic.getConfig();
 <Layout title="OneWayCabbie | Affordable One-Way Cabs in Rajasthan">
     <PageWrapper legal={legalEntries} client:load>
         <HomeHero
-            gallery={homePageMeta.hero_gallery}
-            description={homePageMeta.hero_description}
-            cover={homePageMeta.hero_cover_image}
+            gallery={homePageMeta?.hero_gallery || []}
+            description={homePageMeta?.hero_description}
+            cover={homePageMeta?.hero_cover_image}
             bcmsConfig={bcmsConfig}
             client:load
         />
         <HomeTickets
-            title={homePageMeta.tickets_title}
-            description={homePageMeta.tickets_description}
-            tickets={homePageMeta.tickets}
+            title={homePageMeta?.tickets_title || 'Book Your Ride'}
+            description={homePageMeta?.tickets_description}
+            tickets={homePageMeta?.tickets || []}
             bcmsConfig={bcmsConfig}
             client:load
         />
         <HomeAbout
-            title={homePageMeta.about_title}
-            cover={homePageMeta.about_cover}
-            description={homePageMeta.about_description}
-            topics={homePageMeta.about_topics}
+            title={homePageMeta?.about_title || 'About OneWayCabbie'}
+            cover={homePageMeta?.about_cover}
+            description={homePageMeta?.about_description}
+            topics={homePageMeta?.about_topics || []}
             bcmsConfig={bcmsConfig}
             client:load
         />
         <HomeSponsors
-            title={homePageMeta.sponsors_title}
-            sponsors={homePageMeta.sponsors}
+            title={homePageMeta?.sponsors_title || 'Our Partners'}
+            sponsors={homePageMeta?.sponsors || []}
             bcmsConfig={bcmsConfig}
             client:load
         />
         <HomeSpeakers
-            title={homePageMeta.speakers_title}
-            description={homePageMeta.speakers_description}
-            cover={homePageMeta.speakers_cover_image}
-            speakers={homePageMeta.speakers}
+            title={homePageMeta?.speakers_title || 'Why Choose Us'}
+            description={homePageMeta?.speakers_description}
+            cover={homePageMeta?.speakers_cover_image}
+            speakers={homePageMeta?.speakers || []}
             bcmsConfig={bcmsConfig}
             client:load
         />
