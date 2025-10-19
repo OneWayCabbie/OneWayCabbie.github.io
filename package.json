@@ -5,7 +5,7 @@
     "scripts": {
         "dev": "bcms pull types lng ts && astro dev",
         "start": "bcms pull types lng ts && astro dev",
-        "build": "bcms pull types lng ts && astro check && astro build",
+        "build": "echo 'Skipping BCMS pull due to network issues...' && astro check && astro build",
         "preview": "bcms pull types lng ts && astro preview",
         "astro": "astro",
         "deploy": "astro build && gh-pages -d dist"
@@ -24,6 +24,7 @@
         "@types/react": "^19.1.2",
         "@types/react-dom": "^19.1.2",
         "astro": "^5.7.5",
+        "bcms": "^0.0.0",
         "classnames": "^2.5.1",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
@@ -33,6 +34,7 @@
     },
     "devDependencies": {
         "cross-env": "^10.1.0",
-        "gh-pages": "^6.1.1"
+        "gh-pages": "^6.1.1",
+        "tsx": "^4.20.6"
     }
 }

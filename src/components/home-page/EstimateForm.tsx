@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import SelectInput from '../form/Select';
 
