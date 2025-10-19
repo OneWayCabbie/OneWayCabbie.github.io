@@ -1,0 +1,31 @@
+# .github/workflows/build.yml
+name: Astro Build
+
+on:
+  push:
+    branches:
+      - main # Or your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # Or your specific build command
+        env:
+          BCMS_ORG_ID: ${{ secrets.BCMS_ORG_ID }}
+          BCMS_INSTANCE_ID: ${{ secrets.BCMS_INSTANCE_ID }}
+          BCMS_API_KEY_ID: ${{ secrets.BCMS_API_KEY_ID }}
+          BCMS_API_KEY_SECRET: ${{ secrets.BCMS_API_KEY_SECRET }}
