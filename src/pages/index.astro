@@ -1,7 +1,7 @@
 ---
 import type {
-    HomePageEntry,
-    HomePageEntryMetaItem,
+    OnewaycabbieOneWayTaxiOneWayCabEntry,
+    OnewaycabbieOneWayTaxiOneWayCabEntryMetaItem,
     LegalEntry,
 } from '../../bcms/types/ts';
 
@@ -12,7 +12,6 @@ import PageWrapper from '../components/PageWrapper';
 import HomeSpeakers from '../components/home-page/Speakers';
 import HomeSponsors from '../components/home-page/Sponsors';
 import HomeTickets from '../components/home-page/Tickets';
-import HomeAgenda from '../components/home-page/Agenda';
 import 'swiper/css';
 import { bcmsPrivate } from '../bcms-private';
 import { bcmsPublic } from '../bcms-public';
@@ -22,8 +21,8 @@ const homePageEntry = (
         'home',
         'onewaycabbie--one-way-taxi--one-way-cab',
     )
-) as HomePageEntry;
-const homePageMeta = homePageEntry.meta.en as HomePageEntryMetaItem;
+) as OnewaycabbieOneWayTaxiOneWayCabEntry;
+const homePageMeta = homePageEntry.meta.en as OnewaycabbieOneWayTaxiOneWayCabEntryMetaItem;
 const legalEntries = (
     await bcmsPrivate.entry.getAll('legal')
 ) as LegalEntry[];
