@@ -81,6 +81,7 @@ jobs:
           PUBLIC_BCMS_INSTANCE_ID: ${{ secrets.BCMS_INSTANCE_ID }}
           PUBLIC_BCMS_API_KEY_ID: ${{ secrets.BCMS_API_KEY_ID }}
           PUBLIC_BCMS_API_KEY_SECRET: ${{ secrets.BCMS_API_KEY_SECRET }}
+          PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
